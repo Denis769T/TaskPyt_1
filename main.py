@@ -12,10 +12,13 @@ def menu():
     print("4. Вывод всех записей из файла.")
     print("5. Замена записи, по заголовку.")
     print("0. Выход из программы.")
+
+
 def razdel():
     print("--------------------------------------------")
 
-def save(heading, body): #Сохранение заметки
+
+def save(heading, body):  # Сохранение заметки
     try:
         new_data = {"heading": heading, "text": body, "data": str(datetime.now().strftime('%d/%m/%Y %H:%M:%S'))}
         with open("filedata.json", encoding="utf-8") as loadfile:
@@ -28,6 +31,8 @@ def save(heading, body): #Сохранение заметки
 
     except:
         print("Ошибка при работе с файлом")
+
+
 def heading(heading_1):  # Поиск заметки по заголовку
     try:
         with open("filedata.json", encoding="utf-8") as file:
@@ -43,6 +48,8 @@ def heading(heading_1):  # Поиск заметки по заголовку
                 i = i + 1
     except:
         print("Ошибка при работе с файлом")
+
+
 def delet(text_del):  # Удаление заметки
     with open("filedata.json", "r", encoding="utf-8") as d:
         data = json.load(d)
@@ -55,7 +62,9 @@ def delet(text_del):  # Удаление заметки
             i = i + 1
         with open("filedata.json", "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-def outInput():#Вывод всех записей в файле.
+
+
+def outInput():  # Вывод всех записей в файле.
     print("Заголовок : Текст заметки : Дата и время создания заметки")
     with open("filedata.json", "r", encoding="utf-8") as savefile:
         data = json.load(savefile)
@@ -64,15 +73,16 @@ def outInput():#Вывод всех записей в файле.
         print(txt['heading'] + " : " + txt['text'] + " : " + txt['data'])
     razdel()
 
+
 menu()
 option = int(input("Введите номер команды из меню: "))
 razdel()
 while option != 0:
-    if option == 1:# Поиск заметки.
+    if option == 1:  # Поиск заметки.
         heading_1 = str(input("Введите заголовок заметки: "))
         heading(heading_1)
         razdel()
-    elif option == 2:# Сохранение заметки с записью.
+    elif option == 2:  # Сохранение заметки с записью.
         heading = str(input("Введите заголовок заметки: "))
         body = str(input("Введите текст заметки: "))
         save(heading, body)
@@ -87,7 +97,7 @@ while option != 0:
         heading_1 = input("Введите заголовок редактируемой заметки: ")
         outInput()
         body = input("Введите новый текст заметки: ")
-        text_del=heading_1
+        text_del = heading_1
         delet(heading_1)
         save(heading_1, body)
     else:
